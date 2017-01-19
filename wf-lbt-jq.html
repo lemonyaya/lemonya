@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		@font-face {font-family: 'iconfont';
+		    src: url('font/iconfont.eot'); /* IE9*/
+		    src: url('fonticonfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+		    url('font/iconfont.woff') format('woff'), /* chrome¡¢firefox */
+		    url('font/iconfont.ttf') format('truetype'), /* chrome¡¢firefox¡¢opera¡¢Safari, Android, iOS 4.2+*/
+		    url('font/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+		}
+		*{margin:0px; padding:0px;}
+		li{list-style:none;}
+		.promo{width:520px; height:280px; margin:20px auto; position:relative; overflow:hidden; }
+		.promo ul{width:4000px; background:red; position:absolute; top:0px; left:0px; }
+		.promo ul li{float:left;}
+		.promo ol{position:absolute; bottom:15px; left:227px; background:rgba(255,255,255,0.3); border-radius:7px;}
+		.promo ol li{width:9px; height:9px; background:#B7B7B7; margin:2px; float:left; border-radius:50%; cursor:pointer;}
+		.promo ol li.current{background:#f40;}
+		.promo i{font-family:'iconfont'; font-size:24px; line-height:40px; position:absolute; top:120px; width:40px; height:40px; 
+				background:rgba(0,0,0,0.5); font-style:normal; color:#fff; text-align:center;  cursor:pointer; 
+				display:none;
+				}
+		.promo i.left{left:5px;}
+		.promo i.right{right:5px;}
+	</style>
+</head>
+<body>
+	<div class="promo">
+	     <ul>
+		    <li><img src="images/1.jpg" width="520" height="280" /></li>
+			<li><img src="images/2.jpg" width="520" height="280" /></li>
+			<li><img src="images/3.jpg" width="520" height="280" /></li>
+			<li><img src="images/4.jpg" width="520" height="280" /></li>
+			<li><img src="images/5.jpg" width="520" height="280" /></li>
+		 </ul>
+		 <ol>
+		    <li class="current"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		 </ol>
+		 <i class="left">&#xe623;</i>
+		 <i class="right">&#xe61e;</i>
+	</div>
+</body>
+</html>
+<script src="js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+
+		//定义当前小圆点的一个索引值
+		var dNum = 0;
+
+		//定义当前图片的一个索引值
+		var tNum = 0; 
+
+		//声明一个定时器的变量
+		var timer = null; 
+
+		//克隆第一张图片到最后
+		$('.promo ul').append($('.promo ul li').eq(0).clone(true));
+
+		//封装一个自动播放的函数
+		function autoplay(){
+
+			//下面小圆点的样式切换代码
+			dNum++;
+			if(dNum > 4){
+				dNum = 0;
+			}
+			$('.promo ol li').eq(dNum).addClass('current').siblings().removeClass('current');
+
+			//下面是图片切换的代码
+			tNum++;
+			if(tNum > 5){
+				tNum = 1;
+				$('.promo ul').css('left','0px');
+			}
+			//定义ul移动的距离
+			var move = tNum * -520;
+			$('.promo ul').stop().animate({'left': move + 'px'},500);
+		}
+
+		timer = setInterval(autoplay,2000)
+
+		//对右按钮进行单击事件绑定
+		$('.promo .right').click(function(){
+
+			autoplay();
+
+		});
+
+		//对左按钮进行事件绑定
+		$('.promo .left').click(function(){
+			//下面小圆点的样式切换代码
+			dNum--;
+			if(dNum<0){
+				dNum = 4;
+			}
+			$('.promo ol li').eq(dNum).addClass('current').siblings().removeClass('current');
+			//下面是图片切换的代码
+			tNum--;
+			if(tNum<0){
+				tNum = 4;
+				$('.promo ul').css('left','-2600px');
+			}
+			//定义ul移动的距离
+			var move = tNum * -520;
+			$('.promo ul').stop().animate({'left': move + 'px'},500);
+		});
+
+		//下面是对小圆点进行单击事件的绑定
+		$('.promo ol li').click(function(){
+			//console.log($(this).index());
+			//先来小圆点的样式进行切换
+			$(this).addClass('current').siblings().removeClass('current');
+			//现让图片也进行切换
+			var move = $(this).index() * -520;
+			//console.log(move);
+			$('.promo ul').stop().animate({'left': move + 'px'},500);
+
+			//将当前图片和小圆点的索引值给了tNum dNum
+			tNum = $(this).index();
+			dNum = $(this).index();
+		});
+
+		//鼠标滑过和鼠标离开事件
+		$('.promo').hover(function(){
+			//console.log('鼠标滑过');
+			clearInterval(timer);
+			//显示左右箭头
+			$('.promo i').show();
+		},function(){
+			//console.log('鼠标离开');
+			timer = setInterval(autoplay,2000);
+			$('.promo i').hide();
+		})
+
+	})
+</script>
+
+
+
+
+
+
+
+

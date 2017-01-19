@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表单验证---刘苗制作</title>
+	<link rel="stylesheet" type="text/css" href="css/css.css">
+	<script type="text/javascript" src='js/js.js'></script>
+</head>
+<body>
+	<form name='myf' action='xx.php' method='post' id="allcontent">
+		<div>
+			<label>
+				<span>会 员 名：</span>
+				<input type='text' class='text'>
+			</label>
+			<p class='msg'><i class='ati'></i>5-25个字符，一个汉字为两个字符，推荐使用中文会员名。</p>
+		</div>
+		<div><label><span></span><b id='count'>0个字符</b></label></div>
+		<!--以上是会员名的代码-->
+		<div>
+			<label>
+				<span>登录密码：</span>
+				<input type='password' class='text'>
+			</label>
+			<p class='msg'><i class='ati'></i>5-25个字符，一个汉字为两个字符</p>
+		</div>
+		<div id="em">
+			<label>
+				<span></span>
+				<em>弱</em><em>中</em><em>强</em>
+			</label>
+		</div>
+		<!--以上是登录密码的代码-->
+		<div style='margin-bottom:20px;'>
+			<label>
+				<span>确认密码：</span>
+				<input type='password'>
+			</label>
+			<p class='msg'><i class='ati'></i>请再输入一次</p>
+		</div>
+	</form>
+</body>
+</html>
